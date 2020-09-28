@@ -1,0 +1,271 @@
+<div>
+<% if(currentUser) { %>
+    <div class="jumbotron" style="width:95%;margin:auto;margin-top:2rem">
+        <h3 class="container text-center" style="margin-top:2rem">Account Registration</h3>
+        <p>Please log out the current user before registering new user.</p>
+    </div>
+<% } else { %>
+    <h3 class="container text-center" style="margin-top:2rem">Talent Submission</h3>
+    <div class="col" style="margin-top:2rem">
+        <form name="form-sign-up" method="POST" action="/talent/create" style="width:80%;margin-left:10%;">
+
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputFirstName" class="col-xs-3 col-form-label text-right">First Name:</label>
+                <div class="col">
+                    <% if((typeof firstName === 'undefined') || (firstName === null)){ %>
+                        <input type="text" class="form-control" id="inputFirstName" name="first" placeholder="First Name" required autofocus>
+                    <% } else { %>
+                        <input type="text" class="form-control" id="inputFirstName" name="first" value= <%= firstName; %> required>
+                    <% }; %>  
+                </div>
+            </div>
+
+
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputLastName" class="col-xs-3 col-form-label text-right">Last Name:</label>
+                <div class="col">
+                    <% if((typeof lastName === 'undefined') || (lastName === null)){ %>
+                        <input type="text" class="form-control" id="inputLastName" name="last" placeholder="Last Name" required>
+                    <% } else { %>
+                        <input type="text" class="form-control" id="inputLastName" name="last" value= <%= lastName; %> required>
+                    <% }; %>  
+                </div>
+            </div>
+
+
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputEmail" class="col-xs-3 col-form-label text-right">Email:</label>
+                <div class="col">
+                    <% if((typeof userEmail === 'undefined') || (userEmail === null)){ %>
+                        <input type="email" class="form-control" id="inputEmail" name="last" placeholder="Email.." required>
+                    <% } else { %>
+                        <input type="email" class="form-control" id="inputEmail" name="last" value= <%= userEmail; %> required>
+                    <% }; %>  
+                </div>
+            </div> 
+
+
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputInstagram" class="col-xs-3 col-form-label text-right">Instagram:</label>
+                <div class="col">
+                    <% if((typeof userInstagram === 'undefined') || (userInstagram === null)){ %>
+                        <input type="text" class="form-control" id="inputInstagram" name="instagramField" placeholder="Instagram handle.." required>
+                    <% } else { %>
+                        <input type="text" class="form-control" id="inputInstagram" name="instagramField" value= <%= userInstagram; %> required>
+                    <% }; %>  
+                </div>
+            </div> 
+
+
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputTikTok" class="col-xs-3 col-form-label text-right">TikTok:</label>
+                <div class="col">
+                    <% if((typeof userTikTok === 'undefined') || (userTikTok === null)){ %>
+                        <input type="text" class="form-control" id="inputTikTok" name="tiktokField" placeholder="TikTok handle.." required>
+                    <% } else { %>
+                        <input type="text" class="form-control" id="inputTikTok" name="tiktokField" value= <%= userTikTok; %> required>
+                    <% }; %>  
+                </div>
+            </div> 
+
+
+            <div class="form-group form-row " style="margin-top:2rem;">
+                <label for="inputDressSize" class="col-xs-3 col-form-label text-right">Dress Size:</label>
+                <div class="col">
+                    <% if((typeof userDressSize === 'undefined') || (userDressSize === null)){ %>
+                        <select class="form-control" id="inputDressSize" name="dressSize" required>
+                            <option value="0-4" selected>0-4</option>
+                            <option value="6-8" >6-8</option>
+                            <option value="8-10" >10-12</option>                            
+                            <option value="12 plus" >14 plus</option>
+                        </select>
+                    <% } else { %>
+                        <select class="form-control" id="inputHeightFeet" name="htFeet" required>
+                            <% if (userDressSize === "0-4") {%> <option value="0-4" selected>0-4</option>
+                            <%} else {%> <option value="0-4">0-4</option> <%}%>
+
+                            <% if (userDressSize === "6-8") {%> <option value="6-8" selected>6-8</option>
+                            <%} else {%> <option value="6-8">6-8</option> <%}%>
+
+                            <% if (userDressSize === "10-12") {%> <option value="10-12" selected>10-12</option>
+                            <%} else {%> <option value="10-12">10-12</option> <%}%>
+
+                            <% if (userDressSize === "14 plus") {%> <option value="14 plus" selected>14 plus</option>
+                            <%} else {%> <option value="14 plus">14 plus</option> <%}%>
+                        </select>
+                    <% }; %>  
+                </div>
+            </div>
+
+                
+            <div class="form-group form-row " style="margin-top:2rem;">
+                <label for="inputBDMonth" class="col-xs-3 col-form-label text-right">Birthday:</label>
+                <div class="">
+                    <% if((typeof userBDMonth === 'undefined') || (userBDMonth === null)){ %>
+                        <input style="width:7rem;" type="number" id="inputBDMonth" name="bdMonth" min="1" max="12" placeholder="Month.." required>
+                    <% } else { %>
+                        <input style="width:5rem;" type="number" id="inputBDMonth" name="bdMonth" min="1" max="12" value= <%= userBDMonth; %> required>
+                    <% }; %>  
+                </div>
+                <label for="inputBDDay" class="col-xs-3 col-form-label text-right"></label>
+                <div class="">
+                    <% if((typeof userBDDay === 'undefined') || (userBDDay === null)){ %>
+                        <input style="width:7rem;"  type="number" id="inputBDDay" name="bdDay" min="1" max="31" placeholder="Day.." required>
+                    <% } else { %>
+                        <input style="width:7rem;" type="number" id="inputBDDay" name="bdDay" min="1" max="31" value= <%= userBDDay; %> required>
+                    <% }; %>  
+                </div>
+                <label for="inputBDYear" class="col-xs-3 col-form-label text-right"></label>
+                <div class="col">
+                    <% if((typeof userBDYear === 'undefined') || (userBDYear === null)){ %>
+                        <input style="width:7rem;" type="number" id="inputBDYear" name="bdYear" min="1990" max="2005" placeholder="Year.." required>
+                    <% } else { %>
+                        <input style="width:7rem;" type="number" id="inputBDYear" name="bdYear" min="1990" max="2005" value= <%= userBDYear; %> required>
+                    <% }; %>  
+                </div>
+            </div> 
+            
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputHeightFeet" class="col-xs-3 col-form-label text-right">Height (ft):</label>
+                <div class="col">
+                    <% if((typeof userHeightFeet === 'undefined') || (userHeightFeet === null)){ %>
+                        <select class="form-control" id="inputHeightFeet" name="htFeet" required>
+                            <option value="5" selected>5</option>
+                            <option value="6" >6</option>
+                        </select>
+                    <% } else { %>
+                        <select class="form-control" id="inputHeightFeet" name="htFeet" required>
+                            <% if (userHeightFeet === 5) {%> <option value="5" selected>5</option>
+                            <%} else {%> <option value="5">5</option> <%}%>
+
+                            <% if (userHeightFeet === 6) {%> <option value="6" selected>6</option>
+                            <%} else {%> <option value="6">6</option> <%}%>
+                        </select>
+                    <% }; %>  
+                </div>
+                <label for="inputHeightInches" class="col-xs-3 col-form-label text-right">Height (in):</label>
+                <div class="col">
+                    <% if((typeof userHeightInches === 'undefined') || (userHeightInches === null)){ %>
+                        <select class="form-control" id="inputHeightInches" name="htInches" required>
+                            <option value="0" >0</option>
+                            <option value="1" >1</option>
+                            <option value="2" >2</option>
+                            <option value="3" >3</option>
+                            <option value="4" >4</option>
+                            <option value="5" >5</option>
+                            <option value="6" >6</option>
+                            <option value="7" >7</option>
+                            <option value="8" >8</option>
+                            <option value="9" selected>9</option>
+                            <option value="10" >10</option>
+                            <option value="11" >11</option>
+                        </select>
+
+                    <% } else { %>
+                        <select class="form-control" id="inputHeightInches" name="htInches" required>
+                            <% if (userHeightFeet === 0) {%> <option value="0" selected>0</option>
+                            <%} else {%> <option value="0">0</option> <%}%>
+
+                            <% if (userHeightFeet === 1) {%> <option value="1" selected>1</option>
+                            <%} else {%> <option value="1">1</option> <%}%>
+
+                            <% if (userHeightFeet === 2) {%> <option value="2" selected>2</option>
+                            <%} else {%> <option value="2">2</option> <%}%>
+
+                            <% if (userHeightFeet === 3) {%> <option value="3" selected>3</option>
+                            <%} else {%> <option value="3">3</option> <%}%>
+
+                            <% if (userHeightFeet === 4) {%> <option value="4" selected>4</option>
+                            <%} else {%> <option value="4">4</option> <%}%>
+
+                            <% if (userHeightFeet === 5) {%> <option value="5" selected>5</option>
+                            <%} else {%> <option value="5">5</option> <%}%>
+
+                            <% if (userHeightFeet === 6) {%> <option value="6" selected>6</option>
+                            <%} else {%> <option value="6">6</option> <%}%>
+
+                            <% if (userHeightFeet === 7) {%> <option value="7" selected>7</option>
+                            <%} else {%> <option value="7">7</option> <%}%>
+
+                            <% if (userHeightFeet === 8) {%> <option value="8" selected>8</option>
+                            <%} else {%> <option value="8">8</option> <%}%>
+
+                            <% if (userHeightFeet === 9) {%> <option value="9" selected>9</option>
+                            <%} else {%> <option value="9">9</option> <%}%>
+
+                            <% if (userHeightFeet === 10) {%> <option value="10" selected>10</option>
+                            <%} else {%> <option value="10">10</option> <%}%>
+
+                            <% if (userHeightFeet === 11) {%> <option value="11" selected>11</option>
+                            <%} else {%> <option value="11">11</option> <%}%>
+                        </select>
+                    <% }; %>  
+                </div>
+            </div> 
+
+            <div class="justify-content-center" style="margin-top:2rem;">
+                <img src="/images/COVID19LiabilityWaiver.jpg" style="width:100%" alt="Home">
+            </div>
+
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputCOVIDConsent" class="col-xs-3 col-form-label text-right">Signature:</label>
+                <div class="col">
+                    <input type="text" class="form-control" id="inputCOVIDConsent" name="covidSignature" placeholder="Type first & last name.." required>
+                </div>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="covidCheck" value="" id="defaultCheckCovid">
+                <label class="form-check-label" for="defaultCheckCovid">
+                  I have read the "COVID-19 ASSUMPTION OF RISK AND WAIVER OF LIABILITY" in its entirety, and I agree with it fully and without any reservations.
+                </label>
+            </div>
+
+            <div class="justify-content-center" style="margin-top:2rem;">
+                <img src="/images/MinorWaiver.jpg" style="width:100%" alt="Home">
+            </div>
+
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputMINORConsent" class="col-xs-3 col-form-label text-right">Signature:</label>
+                <div class="col">
+                    <input type="text" class="form-control" id="inputMINORConsent" name="minorSignature" placeholder="Guardian's first & last name.." required>
+                </div>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="minorCheck" value="" id="defaultCheckMinor">
+                <label class="form-check-label" for="defaultCheckMinor">
+                  I, the guardian, have read the "MINORS ONLY WAIVER" in its entirety, and I agree with it fully and without any reservations.
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="minorCheck" value="" id="defaultCheckNOTMinor">
+                <label class="form-check-label" for="defaultCheckNOTMinor">
+                  I am not a minor - I am not under 18 yrs old as of the date I am submitting this form.
+                </label>
+            </div>
+
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputPassword" class="col-xs-3 col-form-label text-right">Password:</label>
+                <div class="col">
+                    <input type="password" class="form-control" id="inputPassword" name="password" placeholder="AlphaNumeric. 15 => Length => 8" required>
+                </div>
+            </div>
+
+
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <label for="inputConfirmPassword" class="col-xs-3 col-form-label text-right">Confirm Password:</label>
+                <div class="col">
+                    <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword" placeholder="AlphaNumeric. 15 => Length => 8" required>
+                </div>
+            </div>            
+            
+
+            <div class="text-center" style="margin-top:1rem">
+                <input type="submit" value="Register" style="width:35%" class="btn btn-md btn-info">
+            </div>
+        </form>  
+    </div>
+<% } %>
+</div>

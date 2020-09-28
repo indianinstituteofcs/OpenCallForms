@@ -1,0 +1,19 @@
+<div  style="margin:auto;margin-top:2rem;width:80%;">
+    <h2>Table of all registered Talent</h2>
+    <table class="table" style="margin-top:2rem;">
+        <thead style="text-align:left;">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% talentList.forEach(currTalent => { %>
+            <tr>
+                <td><%= currTalent.fullName%></td>
+                <td><%= currTalent.email %></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

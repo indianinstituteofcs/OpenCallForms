@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light" > 
+    <a class="navbar-brand" href="/">
+        <img src="/images/LogoOpenCall.png" style="height:60px;margin-left:auto;margin-right:auto;display:block;" alt="Home">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
+            aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href='/submitted-talent'>Submissions</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+        <% if (loggedIn) {%>
+            <li class="nav-item dropdown">
+                <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= currentUser.fullName %>
+                </a>
+                <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="user-menu">
+                    <a class="dropdown-item" href="/talent/show">View</a>
+                    <a class="dropdown-item" href="/talent/edit-info">Edit Info</a>
+                    <a class="dropdown-item" href="/talent/edit-password">Edit Password</a>                    
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/talent/logout">Logout</a>
+                </div>
+            </li>
+        <% } else { %>
+            <li class="nav-item">
+                <a class="nav-link" href='/talent/signup'>Sign In</a>
+            </li>
+        <% }%>
+        </ul>
+    </div>
+</nav>

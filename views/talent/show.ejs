@@ -1,0 +1,12 @@
+<div class="jumbotron text-center" style="width:95%;margin:auto;margin-top:1rem"> 
+    <% if(!loggedIn) { %>
+        <h3>Account Info</h3>
+        <p>No talent is currently logged in.</p>
+    <% } else { %>
+        <div  class="container text-center">
+            <h3><%= currentUser.fullName; %>'s details</h3>
+            <h6><%= currentUser.email; %></h6>
+        </div>
+    <% } %>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="jumbotron" style="width:95%;margin:auto">
+        <h2 class="text-center">
+            Submission form for open call @ ONE
+        </h2>
+        <p class="text-center" style="margin-top:2rem">
+            Please enter all required information and sign all applicable releases - without doing this individuals cannot attend any open call @ ONE.
+        </p>
+        <p class="text-center" style="margin-top:2rem">
+            We will inform you via email of any updates to the open call.  <br/>
+        </p>
+        <div class="text-center" style="margin-top:3rem">
+            <div class="">
+                <!--
+                <div class="mb-3">
+                    <a class="btn btn-md btn-success" href='/home/submitted-talent' role=button style="width:15rem">
+                        Submitted (ADX))
+                    </a>
+                </div>
+                -->
+                <% if (!loggedIn) {%>
+                    <div class="">
+                        <a class="btn btn-md btn-success" href='/talent/signup' role=button style="width:15rem">
+                            Sign In
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
