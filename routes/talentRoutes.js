@@ -7,7 +7,8 @@ const   talentController = require("../controllers/talentController");
 router.get("/show", talentController.showView);
 
 router.get("/new", talentController.new);
-router.post("/create",talentController.validationChain, talentController.validate, talentController.redirectView);
+//router.post("/create",talentController.validationChain, talentController.validate, talentController.redirectView);
+router.post("/create",talentController.tempInput);
 
 router.get("/edit-info", talentController.editInfo);
 router.post("/update-info", talentController.validationChainUpdateInfo, talentController.validateUpdateInfo);

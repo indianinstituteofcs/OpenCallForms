@@ -21,6 +21,18 @@ const TalentSchema = new Schema({
     lowercase:true,
     unique:true
   },
+  instagram: {
+    type: String,
+    required: true  
+  },
+  tiktok: {
+    type: String,
+    required: true  
+  },
+  birthday: {
+    type: Date,
+    required: true  
+  },
   height: {
     feet:{
       type: Number,
@@ -30,6 +42,26 @@ const TalentSchema = new Schema({
       type: Number,
       required: true  
     }
+  },
+  dress: {
+    type: String,
+    required: true  
+  },
+  covidSignature: {
+    type: String,
+    required: true  
+  },
+  covidCheck: {
+    type: Boolean,
+    required: true  
+  },
+  isAMinor: {
+    type: Boolean,
+    required: true  
+  },
+  minorSignature: {
+    type: String,
+    required: true  
   }
 },
   {

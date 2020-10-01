@@ -5,21 +5,34 @@ const   passport = require("passport");
 const { check, validationResult } = require("express-validator");
 const { session } = require("passport");
 const { findByIdAndRemove } = require("../models/talent");
-
+var     tempUser = {};
 const fName = "talentController:";
 
 function getUserParams(body){
+    console.log("getUserParams:body: "+body);
+
+    let d = new Date(body.bdYear, body.bdMonth-1, body.bdDay);
+
     let userParams = {
         name:{
             first: body.first,
             last: body.last
         },
         email: body.email,
+        instagram:body.instagramField,
+        tikyok:body.tiktokField,
+        dress:body.dressSize,
+        birthday:d.toISOString().slice(0,10),
         height:{
-            feet: body.feet,
-            inches: body.inches
+            feet: body.htFeet,
+            inches: body.htInches
         },
-        password: body.password
+        info:body.additionalInfoField,
+        covidSignature:body.covidSignature,
+        covidCheck:body.covidCheck,
+        isAMinor:body.minorCheck,
+        minorSignature:body.minorSignature,        
+        password: body.password        
     }
     return userParams;
 }
@@ -77,16 +90,37 @@ exports.editPassword = (req, res) => {
 
 
 exports.new = (req, res) => { //Take input to create a new talent
-    console.log(fName +"new: req.query:");
+    console.log(fName +"new: req.body:");
     console.log(req.query);
 
-    res.render("talent/new", {
-        title:"Forms:New",
-        firstName:req.query.firstName,
-        lastName:req.query.lastName,
-        userEmail:req.query.userEmail
-        //,userHeightFeet:6  //JC DEBUG
-    });
+    console.log(fName +"new: tempUser:");
+    console.log(tempUser);
+
+    var newData = {};
+
+    if(Object.getOwnPropertyNames(tempUser).length == 0) {
+        newData = {title:"Forms:New"}
+    } else {
+        newData = {
+            title:"Forms:New",
+            firstName:tempUser.first,
+            lastName:tempUser.last,
+            userEmail:tempUser.email,
+            userInstagram:tempUser.instagramField,
+            userTikTok:tempUser.tiktokField,
+            userDressSize:tempUser.dressSize,
+            userBDYear:tempUser.bdYear,
+            userBDMonth:tempUser.bdMonth,
+            userBDDay:tempUser.bdDay,
+            userHeightFeet:tempUser.htFeet,
+            userHeightInches:tempUser.htInches,
+            userAdditionalInfo:tempUser.additionalInfoField,
+        }
+        console.log(getUserParams(tempUser));
+    } 
+
+    res.render("talent/new", newData);
+    tempUser = {}
 };
 
 
@@ -224,30 +258,61 @@ exports.validationChain = [
     check("first").trim().escape(),
     check("last").trim().escape(),
     check("email", emailErrorMessage).normalizeEmail().trim().escape().isEmail(),
+    check("instagramField").trim().escape(), 
+    check("tiktokField").trim().escape(),     
+// No check for bdMonth, bdDay, bdYear, dressSize, htFeet, htInches since they are from pickers  
+    check("additionalInfoField").trim().escape(),     
+    check("covidSignature").trim().escape(),     
+//No check for covidCheck, minorCheck since it comes from checkbox
+    check("minorSignature").trim().escape(),
     check("password").trim().escape(),
     check("password", "8 <= password length <= 15.").isLength({min:8, max:15}),
     check("password", "Password is not alphanumeric").isAlphanumeric(),
-    check("password", "Password must have at least 1 number").matches(/\d{1}/),
-    check("password", "Password must have at least 1 letter").matches(/[A-Z]{1}/i),
+    check("confirmPassword").trim().escape(),    
     check('confirmPassword', 'Passwords do not match').custom((value, {req}) => (value === req.body.password))
 ];
 
+function isDateValid(year,month,day){
+    let d = new Date(year, month-1, day);
+    return (d.getFullYear()===year) && (d.getMonth()===(month-1)) && (d.getDay()===day);
+}
 
+exports.tempInput = (req, res, next) => {
+    console.log("tempInput");
+    console.log(req.body);
+    let flag = isDateValid(req.body.bdYear, req.body.bdMonth-1, req.body.bdDay);
+    console.log("Birtday is valid? " + flag);
+    tempUser = req.body;
+    res.redirect(`/Talent/new`);
+}
+
+//JC DEBUG
 exports.validate = (req, res, next) => {
     let error = validationResult(req);
-    if (!error.isEmpty()) {
+    var minorSignatureMsg = "";
+    if(req.body.minorCheck == 1){
+        if((minorSignature === null) || (minorSignature === "")){
+            minorSignatureMsg = "Guardian signature missing for a Minor";
+        }
+    }
+    var birthdayDateMsg = "";
+    let flag = isDateValid(req.body.bdYear, req.body.bdMonth-1, req.body.bdDay);
+    if (!flag){
+        birthdayDateMsg = "Birthday is not a valid date";
+    }
+
+    if (!error.isEmpty() || (minorSignatureMsg === "") || (birthdayDateMsg === "")) {
         let messages = error.array().map(e => e.msg);
         let messageString = messages.join(" and ");
+        messageString = (minorSignatureMsg === "") ? messageString : messageString + " and " + minorSignatureMsg;
+        messageString = (birthdayDateMsg === "") ? messageString : messageString + " and " + birthdayDateMsg;
         console.log("ERROR: validating registration form: " + messageString);
         req.flash("error", messageString);
-        var redirectPath = "/Talent/new?firstName=" + req.body.first + "&lastName=" + req.body.last;
-        if(!messageString.includes(emailErrorMessage)){
-            redirectPath = redirectPath + "&userEmail=" + req.body.email;
-        }
-        res.locals.redirect = redirectPath;
+        res.locals.redirect = "/Talent/new";
+        res.locals.tempUser = req.body;
         next();
     } else {
-        console.log("SUCCESS: all registration form input are valid");
+        console.log("SUCCESS: all submission form inputs are valid");
         create(req,res,next);
     }
 }
