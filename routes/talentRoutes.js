@@ -3,12 +3,18 @@
 const   router = require("express").Router();
 const   talentController = require("../controllers/talentController");
 
+
+
 //All routes start with /talent 
 router.get("/show", talentController.showView);
 
+router.post("/delete", talentController.imageDelete);
+router.post("/upload", talentController.imageUpload);
+
+
 router.get("/new", talentController.new);
-//router.post("/create",talentController.validationChain, talentController.validate, talentController.redirectView);
-router.post("/create",talentController.tempInput);
+router.post("/create",talentController.validationChain, talentController.validate, talentController.redirectView);
+//router.post("/create",talentController.tempInput);
 
 router.get("/edit-info", talentController.editInfo);
 router.post("/update-info", talentController.validationChainUpdateInfo, talentController.validateUpdateInfo);

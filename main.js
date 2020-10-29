@@ -15,9 +15,10 @@ const   connectFlash = require("connect-flash");
 const   passport = require("passport");
 const   Talent = require("./models/talent");
 
+const mongoURI = "mongodb://localhost:27017/formsDB";
 mongoose.Promise = global.Promise;
 mongoose.connect(
-    "mongodb://localhost:27017/formsDB", 
+    mongoURI, 
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -69,6 +70,7 @@ app.use((req, res, next) => {
     res.locals.loggedIn = req.isAuthenticated();
     //console.log("Logged" + res.locals.loggedIn);
     res.locals.currentUser = req.user;
+    res.locals.file = req.file;
     res.locals.title = "Form";
     next();
 });

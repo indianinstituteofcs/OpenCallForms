@@ -5,7 +5,22 @@
     <% } else { %>
         <div  class="container text-center">
             <h3><%= currentUser.fullName; %>'s details</h3>
-            <h6><%= currentUser.email; %></h6>
+            <h6>Birthday: <%= currentUser.birthDate; %></h6>            
+            <h6>Is a Minor: <% if(currentUser.isAMinor){ %> Yes <% } else { %> No <% } %></h6>            
+            <h6>Email: <%= currentUser.email; %></h6>
+            <h6>Instagram: <%= currentUser.instagram; %></h6>
+            <h6>TikTok: <%= currentUser.tiktok; %></h6>
+            <h6>Dress Size: <%= currentUser.dressSize; %></h6>
+            <h6>Height: <%= currentUser.fullHeight; %></h6>
+            <h6>Skills: <%= currentUser.info; %></h6>
+
+
+            <p style="margin-top:3rem;">FYI: <br/>
+            1) Every submission agrees to COVID policy by checking the boxing and typing name in the signature area<br/>
+            2) If applicant is minor then submission can only be made if the Guardian singature is completed by typing name in the ignature area</p>
+
+
+
         </div>
     <% } %>
     </div>

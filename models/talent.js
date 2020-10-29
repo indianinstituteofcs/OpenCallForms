@@ -47,6 +47,10 @@ const TalentSchema = new Schema({
     type: String,
     required: true  
   },
+  info: {
+    type: String,
+    required: true  
+  },
   covidSignature: {
     type: String,
     required: true  
@@ -70,6 +74,52 @@ const TalentSchema = new Schema({
 
 TalentSchema.virtual("fullName").get(function() {
   return `${this.name.first} ${this.name.last}`;
+});
+
+TalentSchema.virtual("birthDate").get(function() {
+  var d = new Date(this.birthday);
+  return d.toISOString().slice(0,10);
+});
+
+TalentSchema.virtual("bdYear").get(function() {
+  var d = new Date(this.birthday);
+  return d.getUTCFullYear();
+});
+
+TalentSchema.virtual("bdMonth").get(function() {
+  var d = new Date(this.birthday);
+  return (d.getUTCMonth() + 1);
+});
+
+TalentSchema.virtual("bdDay").get(function() {
+  var d = new Date(this.birthday);
+  return d.getUTCDate();
+});
+
+TalentSchema.virtual("dressSize").get(function() {
+  var size="";
+  switch(parseInt(this.dress,10)){
+    case 0:
+      size = "0-4";
+      break;
+
+    case 6:
+      size = "6-8";
+      break;
+
+    case 10:
+      size = "10-12";
+      break;
+
+    case 14:
+      size = "14 plus";
+      break;
+  }
+  return size;
+});
+
+TalentSchema.virtual("fullHeight").get(function() {
+  return `${this.height.feet}' ${this.height.inches}"`;
 });
 
 TalentSchema.plugin(passportLocalMongoose, {usernameField: "email"});

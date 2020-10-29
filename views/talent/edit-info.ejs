@@ -14,31 +14,131 @@
         </div>
 
         <div class="col" style="margin-top:1rem">
-            <form name="form-sign-up" method="POST" action="/talent/update-info">
-                <div class="text-center" style="margin-top:1.1rem">
-                    <label for="inputFirstName" style="width:11rem;text-align:right;">First Name:</label>
-                    <input id="inputFirstName" type="text" name="first" style="width:55%;" value=<%= currentUser.name.first; %> >
+            <form name="form-sign-up" method="POST" action="/talent/update-info" style="width:80%;margin-left:10%;">
+                <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                    <label for="inputFirstName" class="col-xs-3 col-form-label text-right">First Name:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="inputFirstName" name="first" value= <%= currentUser.name.first; %> required>
+                    </div>
                 </div>
     
-                <div class="text-center" style="margin-top:1.1rem">
-                    <label for="inputLastName" style="width:11rem;text-align:right;">Last Name:</label>
-                    <input id="inputLastName" type="text" name="last" style="width:55%;" value=<%= currentUser.name.last; %>>
+                <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                    <label for="inputLastName" class="col-xs-3 col-form-label text-right">Last Name:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="inputLastName" name="last" value= <%= currentUser.name.last; %> required>
+                    </div>
                 </div>
     
-                <div class="text-center" style="margin-top:1.1rem">
-                    <label for="inputEmail" style="width:11rem;text-align:right;">Email:</label>
-                    <input id="inputEmail" type="email" name="email" style="width:55%;" value=<%= currentUser.email; %>>
+                <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                    <label for="inputEmail" class="col-xs-3 col-form-label text-right">Email:</label>
+                    <div class="col">
+                        <input type="email" class="form-control" id="inputEmail" name="email" value= <%= currentUser.email; %> required>
+                    </div>
+                </div> 
+    
+                <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                    <label for="inputInstagram" class="col-xs-3 col-form-label text-right">Instagram:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="inputInstagram" name="instagramField" value= <%= currentUser.instagram; %> required>  
+                    </div>
+                </div> 
+    
+                <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                    <label for="inputTikTok" class="col-xs-3 col-form-label text-right">TikTok:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="inputTikTok" name="tiktokField" value= <%= currentUser.tiktok; %> required>
+                    </div>
+                </div> 
+    
+                <div class="form-group form-row " style="margin-top:2rem;">
+                    <label for="inputDressSize" class="col-xs-3 col-form-label text-right">Dress Size:</label>
+                    <div class="col">
+                        <select class="form-control selectpicker" id="inputDressSize" name="dressSize" title="What is your Dress Size?" required>
+                            <option value="0" <% if (currentUser.dress === "0") {%> selected <%}%> >0-4</option>
+                            <option value="6" <% if (currentUser.dress === "6") {%> selected <%}%> >6-8</option>
+                            <option value="10" <% if (currentUser.dress === "10") {%> selected <%}%> >10-12</option>
+                            <option value="14" <% if (currentUser.dress === "14") {%> selected <%}%> >14 plus</option>
+                        </select>
+                    </div>
                 </div>
-
-                <div class="text-center" style="margin-top:1.1rem">
-                    <label for="inputPassword" style="width:11rem;text-align:right;">Current Password:</label>
-                    <input id="inputPassword" type="password" name="password" placeholder="password..." style="width:55%;" required>
+                  
+                <label style="margin-top:0rem;" class="col-xs-3 col-form-label text-left">Birthday:</label>  
+                <div class="form-group form-row" >
+                    <div class="col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" for="inputBDMonth">M</span>
+                        </div>
+                        <input class="form-control" type="number" id="inputBDMonth" name="bdMonth" min="1" max="12" value= <%= currentUser.bdMonth; %> required>
+                    </div>
+                    <div class="col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" for="inputBDDay">D</span>
+                        </div>
+                        <input class="form-control" type="number" id="inputBDDay" name="bdDay" min="1" max="31" value= <%= currentUser.bdDay; %> required>
+                    </div>
+                    <div class="col input-group">
+                        <div class="input-group-prepend small">
+                            <span class="input-group-text" for="inputBDYear">Y</span>
+                        </div>
+                        <input class="form-control" type="number" id="inputBDYear" name="bdYear" min="1990" max="2005" value= <%= currentUser.bdYear; %> required>
+                    </div>
+                </div> 
+                
+                <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                    <label class="col-xs-3 col-form-label text-right">Height:</label>
+                    <div class="col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" for="inputHeightFeet">Feet</span>
+                        </div>
+                        <input class="form-control" type="number" id="inputHeightFeet" name="htFeet" min="5" max="6" value=<%= currentUser.height.feet; %> required>
+                    </div>
+                    <div class="col input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" for="inputHeightInches">Inches</span>
+                        </div>
+                        <input class="form-control" type="number" id="inputHeightInches" name="htInches" min="0" max="11" value=<%= currentUser.height.inches; %> required>
+                    </div>
+                </div> 
+    
+                <div class="form-group" style="margin-top:2rem;">
+                    <label for="additionalInfo">Other interests, skill, facts you would like to share:</label>
+                    <div class="">
+                        <textarea class="form-control" id="additionalInfo" name="additionalInfoField" rows=3 required>   <%= currentUser.info; %> </textarea>
+                    </div>
                 </div>
-
-                <div class="text-center" style="margin-top:1.2rem">
-                    <input type="submit" value="Update" style="width:35%" class="btn btn-md btn-info">
+        
+                <div class="form-group form-row " style="margin-top:2rem;">
+                    <!--<label for="inputMinorCheck" class="col-xs-3 col-form-label text-right">Minor Status:</label>-->
+                    <div class="col">
+                        <select class="form-control selectpicker" id="inputMinorCheck" name="minorCheck" title="Are you a Minor?" required>
+                            <option value="0" <% if (!currentUser.isAMinor) {%> selected <%}%> >I am NOT a MINOR</option>
+                            <option value="1" <% if (currentUser.isAMinor) {%> selected <%}%> >I am a MINOR</option>
+                        </select>
+                    </div>
                 </div>
-            </form>  
+    
+                <div class="justify-content-center" style="margin-top:2rem;" id="minorWaiverTextDiv">
+                    <img src="/images/MinorWaiver.jpg" style="width:100%" alt="Home">
+                </div>
+    
+                <div class="form-group form-row justify-content-center" style="margin-top:2rem;" id="minorSignatureDiv">
+                    <label for="inputMINORConsent" class="col-xs-3 col-form-label text-right">Signature:</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="inputMINORConsent" name="minorSignature" value=<%= currentUser.minorSignature; %> >
+                    </div>
+                </div>
+    
+                <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                    <label for="inputPassword" class="col-xs-3 col-form-label text-right">Password:</label>
+                    <div class="col">
+                        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="AlphaNumeric. 15 => Length => 8" required>
+                    </div>
+                </div>
+    
+                <div class="text-center" style="margin-top:3rem">
+                    <input type="submit" value="SUBMIT" style="width:35%" class="btn btn-md btn-secondary" >
+                </div>
+            </form>      
         </div>
     <% } %>
     </div>
