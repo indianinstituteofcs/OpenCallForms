@@ -62,6 +62,11 @@ const TalentSchema = new Schema({
   freeAgentCheck: {
     type: Boolean,
     required: true  
+  },
+  emailVerified: {
+    type: Boolean,
+    default:false,
+    required: true  
   }
 },
   {

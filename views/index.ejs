@@ -1,17 +1,21 @@
 <div class="container-fluid">
     <div class="jumbotron" style="width:95%;margin:auto">
         <h6 class="text-center">
-            Enter to be selected for
+            <% if (loggedIn) {%>
+                Congratulations! You have already entered the
+            <% } else {%>
+                Enter to be selected for the       
+            <% } %>
         </h6>
         <h4 class="text-center">
             New York (Students') Fashion Show
         </h4>
 
-        <h6 class="text-center">
+        <h6 class="text-center" style="margin-top:2rem">
             Key Dates
         </h6>
 
-        <p class="text-center" style="margin-top:2rem">
+        <p class="text-center">
             December 18, 2020 - Final list for NY(S)FS). <br/>
             Jan 16 & 17, 2021 - Content creation in NYC. <br/>
             Feb 2, 2021 - Virtual launch of NY(S)FS. <br/>
@@ -21,16 +25,12 @@
             We will notify applicants via email (and text where possible) of the deicsions and any scheduling updates.
         </p>
 
-        <div class="text-center" style="margin-top:3rem">
-            <div class="">
-                <% if (!loggedIn) {%>
-                    <div class="">
-                        <a class="btn btn-md btn-success" href='/talent/signup' role=button style="width:16rem">
-                            Enter Now!
-                        </a>
-                    </div>
-                <% } %>
+        <% if (!loggedIn) {%>
+            <div class="text-center" style="margin-top:3rem">
+                <a class="btn btn-md btn-success" href='/talent/signup' role=button style="width:16rem">
+                    Enter Now!
+                </a>
             </div>
-        </div>
+        <% } %>
     </div>
 </div>

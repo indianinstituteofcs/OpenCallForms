@@ -5,8 +5,10 @@ const   talentController = require("../controllers/talentController");
 
 
 
-//All routes start with /talent 
+//All routes start with /talent
 router.get("/show", talentController.showView);
+router.get("/verify", talentController.verifyEmail);
+router.get("/resend", talentController.resendEmail);
 
 router.get("/new", talentController.new);
 router.post("/create",talentController.validationChainCreate, talentController.validateCreate, talentController.redirectView);

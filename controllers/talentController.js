@@ -1,17 +1,85 @@
 "use strict";
-const   util = require("util");
-const   upload = require("../uploadMW");
-const   fs = require("fs");
-var     vFile1="";
-var     vFile2="";
-const   defFile = "/images/upload/image-block.png";
-
 const   Talent = require("../models/talent");
+const   EmailVerifyToken = require("../models/secret");
 const   passport = require("passport");
 const   { check, validationResult } = require("express-validator");
 const   { session } = require("passport");
 var     tempUser = {};
 const   fName = "talentController:";
+const   sgMail = require('@sendgrid/mail');
+
+
+function sendVerificationEmailAux(user, currToken){
+    console.log(fName + "sendVerificationEmailAux:");
+
+    var flag = false;
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+    let subjectMsg = "Please verify your email for submission to New York (Students\') Fastion show";
+    let bodyText = 'Dear ' + user.name.first + ',<br\><br\> Please verify your email address by clicking on <br\><br\> https://localhost:8080/talent/verify?token=' + currToken + '<br\><br\><br\><br\>From the NY(S)FS Team';
+    const msg = {
+        to: 'jc@project44laight.com',
+        from: 'jc@project44laight.com', // Use the email address or domain you verified above
+        subject: subjectMsg,
+        text: bodyText,
+        html: bodyText,
+    };
+
+    sgMail
+        .send(msg)
+        .then(() => {
+            console.log('Email sent');
+            flag = true;
+        })
+        .catch((error) => {
+            console.log(error);
+            flag = error;
+        })
+
+    return flag;
+}
+
+
+function makeToken(){
+    console.log(fName + "makeToken:");
+
+    var rV =  '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    let stringLength = 64
+    for ( var i = 0; i < stringLength; i++ ) {
+        rV += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    let timeStamp = Date.now();
+    //console.log(fName + "makeRandomString: {" + rV +"}," + "timeStamp: {" + timeStamp +"}");
+    rV = rV + timeStamp;
+    //console.log(fName + "makeRandomString: {" + rV +"}");
+    return rV;
+};
+
+
+function sendVerificationEmail(talent, next){
+    console.log(fName + "sendVerificationEmail:");
+
+    let currToken = makeToken();
+    let userParams = {
+        token:currToken,
+        id:talent._id
+    };
+    
+    const newEmailVerifyToken = new EmailVerifyToken(userParams);
+    
+    newEmailVerifyToken.save(function (err, result) {
+        if (err){
+            console.error("ERROR:sendVerificationEmail: Cannot save token" + err)
+            next(err);
+        }
+        console.log("SUCCESS:sendVerificationEmail: " + result.id + " and " + result.token + "saved to EmailVerifyToken collection.");
+    });
+
+    sendVerificationEmailAux(talent, currToken);
+}
+
 
 function displayTodbUser(body){
     console.log(fName + "displayTodbUser:body: " + body);
@@ -90,22 +158,106 @@ exports.redirectView = (req, res, next) => {
 }
 
 
-exports.showView = (req, res) => {
+exports.showView = (req, res, next) => {
     console.log(fName + "showView:");
-    console.log("Talent Logged In: "+ res.locals.loggedIn); 
-    console.log("Talent Info: ");
+    console.log("showView:Talent Logged In: "+ res.locals.loggedIn); 
+    let titleString = "NY(S)FS | View";
+    console.log("showView:Talent Info: ");
     console.log(res.locals.currentUser);   
-    var titleString = (res.locals.loggedIn) ? "Forms: "+res.locals.currentUser.fullName : "Forms:Not Logged";         
-    res.render("talent/show", {title:titleString});
+    res.render("talent/show", {title:titleString});        
 };
 
+
+function verifyEmailAux(req, res){
+    let flashMsg = `The link used to verify the email has expired. If the user's email is not yet verfied, then please get a new verification email by clicking the "Resend Email" button on the View page`;
+    req.flash("error", flashMsg);
+    console.log(flashMsg);
+    res.redirect("/talent/show");
+}
+
+
+exports.verifyEmail = (req, res, next) => {
+    console.log(fName + "verifyEmail:");
+    console.log("Talent Logged In: "+ res.locals.loggedIn); 
+    let titleString = "NY(S)FS | Verify";
+    let currToken = req.query.token;
+    console.log("Token: "+ currToken);
+
+    if(currToken === undefined){
+        res.redirect("/talent/show");
+    } else {
+        EmailVerifyToken.findOne({token: currToken})
+        .exec()
+
+        .then((data) => {
+            if(!data){//token is not in DB. Cannot verify. Suggest resend.
+                verifyEmailAux(req, res);
+            } else {//token found proceed to verify user. 
+                console.log(currToken + " is in DB. Proceeding to verify.");
+                Talent.findByIdAndUpdate(data.id, {$set: {emailVerified:true}}, {new:true})
+                .exec()
+
+                .then ((user) => {
+                    EmailVerifyToken.deleteMany({_id:data._id})
+                    .exec()
+
+                    .then(() => {
+                        console.log("Record for:" + currToken +" is succeessfully deleted");
+                        res.locals.currUser = user;
+                        console.log("Verified user: " + user.fullName);
+                        console.log(req.query);
+                        res.redirect("/talent/show");                        
+                    })
+
+                    .catch((errDel) => {
+                        verifyEmailAux(req, res);
+                    })
+                })
+
+                .catch((error) => {
+                    verifyEmailAux(req, res);                    
+                })                
+            }
+        })
+
+        .catch((error) => {
+            verifyEmailAux(req, res);
+        })
+    }
+};
+
+
+exports.resendEmail = (req, res, next) => {
+    console.log(fName + "resendEmail:");
+    let currentUser = res.locals.currentUser;
+    let flashMsg = `New email sent to verify the email address for: ${currentUser.fullName}.`;
+
+    EmailVerifyToken.deleteMany({id:currentUser._id})
+    .exec()
+
+    .then(() => {
+        console.log(`SUCCESS:resendEmail: All tokens for: ${currentUser.fullName} were deleted.`);
+        sendVerificationEmail(currentUser, next);
+        req.flash("success",flashMsg);
+        console.log("SUCCESS:resendEmail: " + flashMsg);
+        res.redirect("/talent/show");
+    })
+
+    .catch((errDel) => {
+        console.log("Tokens for:" + currentUser.fullName +" were NOT deleted. Error message: " + errDel);
+        sendVerificationEmail(currentUser, next);
+        req.flash("success",flashMsg);
+        console.log("SUCCESS:resendEmail: " + flashMsg);
+        res.redirect("/talent/show");
+    })
+};
 
 exports.editInfo = (req, res) => {
     console.log(fName + "editInfo:");
     console.log("Talent Logged In: "+ res.locals.loggedIn); 
     console.log("Talent Info: ");
     console.log(res.locals.currentUser);  
-    var titleString = (res.locals.loggedIn) ? "Edit: "+res.locals.currentUser.fullName : "Edit:Not Logged";
+    let titleString = "NY(S)FS | Info Edit";
     let newData = dbUserToDisplay(titleString, res.locals.currentUser);
     res.render("talent/edit-info", newData);
 };
@@ -116,7 +268,7 @@ exports.editPassword = (req, res) => {
     console.log("Talent Logged In: "+ res.locals.loggedIn); 
     console.log("Talent Info: ");
     console.log(res.locals.currentUser);
-    var titleString = (res.locals.loggedIn) ? "Edit Password: "+res.locals.currentUser.fullName: "Edit Password:Not Logged";        
+    let titleString = "NY(S)FS | Password Edit";
     res.render("talent/edit-password", {title:titleString});
 };
 
@@ -183,6 +335,7 @@ exports.signUp = (req, res) => {
 
 exports.loginUpdate = (req, res) => {
     console.log(fName+ "loginUpdate:");
+    //makeToken();
     res.render("talent/login", {title:"Forms:Log In"});
 };
 
@@ -328,7 +481,7 @@ function signUpErrorMessage(validationError, birthdayDateMsg, overAgeCutOff, fre
     if (birthdayDateMsg === ""){ //Birthday is a valid date            
         if (!overAgeCutOff){// Under cut off age
             var tempS = (messageString == "") ? "" : (messageString + " and ");
-            messageString = tempS + "Cannot register talent because age is under: " + cutOffAge;
+            messageString = tempS + "Cannot register talent because age is under the cutOffAge";
         }    
     } else { //Birthday is invalid date
         let tempS = (messageString == "") ? "" : messageString + " and ";
@@ -501,11 +654,11 @@ function create(req, res, next){
                             console.log("ERROR: " + user.fullName + "registered but could not log in");
                             return next(err); 
                         }
-                        req.user = user;
-                        res.locals.currentUser = user;
-                      });
-                    //console.log(req.sessions);
-                    res.locals.redirect = "/talent/show";
+                    });                        
+                    req.user = user;
+                    res.locals.currentUser = user;
+                    sendVerificationEmail(user, next);
+                    res.locals.redirect = "/talent/verify";
                 } else {
                     req.flash("error", `Failed to create user account because: ${error.message}.`);
                     res.locals.redirect = "/talent/new";
