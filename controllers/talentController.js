@@ -286,7 +286,7 @@ exports.new = (req, res) => { //Take input to create a new talent
         //coming from sign up page
         console.log(fName +"new: tempUser is empty");
         newData = {
-            title:"Forms:New",
+            title:"NY(S)FS | New",
             userEmail:req.query.userEmail,
             userBDMonth:req.query.userBDMonth,
             userBDDay:req.query.userBDDay,
@@ -296,7 +296,7 @@ exports.new = (req, res) => { //Take input to create a new talent
         //re-draw after on the new user page, e.g. after erroneous input
         console.log(fName +"new: tempUser is NOT empty");
         newData = {
-            title:"Forms:New",
+            title:"NY(S)FS | New",
             firstName:tempUser.first,
             lastName:tempUser.last,
             userEmail:tempUser.email,
@@ -323,7 +323,7 @@ exports.new = (req, res) => { //Take input to create a new talent
 exports.signUp = (req, res) => {
     console.log(fName+ "signUp:");
     res.render("talent/signup", {
-        title:"Forms:Sign In",
+        title:"NY(S)FS | Sign Up",
         userEmail:req.query.userEmail,
         userBDMonth:req.query.userBDMonth,
         userBDDay:req.query.userBDDay,
@@ -336,7 +336,7 @@ exports.signUp = (req, res) => {
 exports.loginUpdate = (req, res) => {
     console.log(fName+ "loginUpdate:");
     //makeToken();
-    res.render("talent/login", {title:"Forms:Log In"});
+    res.render("talent/login", {title:"NY(S)FS | Log In"});
 };
 
 
