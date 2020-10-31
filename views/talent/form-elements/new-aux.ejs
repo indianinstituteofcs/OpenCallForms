@@ -1,0 +1,160 @@
+<!-- First Name -->                        
+<div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+    <div class="col input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="inputFirstName">First Name</span>
+        </div>
+        <% if((typeof firstName === 'undefined') || (firstName === null)){ %>
+            <input type="text" class="form-control" id="inputFirstName" name="first" placeholder="First Name" required autofocus>
+        <% } else { %>
+            <input type="text" class="form-control" id="inputFirstName" name="first" value= <%= firstName; %> required>
+        <% }; %>  
+    </div>
+</div>
+
+<!-- Last Name -->            
+<div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+    <div class="col input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="inputLastName">Last Name</span>
+        </div>
+        <% if((typeof lastName === 'undefined') || (lastName === null)){ %>
+            <input type="text" class="form-control" id="inputLastName" name="last" placeholder="Last Name" required>
+        <% } else { %>
+            <input type="text" class="form-control" id="inputLastName" name="last" value= <%= lastName; %> required>
+        <% }; %>  
+    </div>
+</div>
+
+<!-- Email -->
+<%- include('user-email') %>
+
+<!-- Instagram -->                        
+<div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+    <div class="col input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="inputInstagram">Instagram</span>
+        </div>
+        <% if((typeof userInstagram === 'undefined') || (userInstagram === null)){ %>
+            <input type="text" class="form-control" id="inputInstagram" name="instagramField" placeholder="Instagram handle.." required>
+        <% } else { %>
+            <input type="text" class="form-control" id="inputInstagram" name="instagramField" value= <%= userInstagram; %> required>
+        <% }; %>  
+    </div>
+</div> 
+
+<!-- Tiktok -->                        
+<div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+    <div class="col  input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="inputTikTok">TikTok</span>
+        </div>
+        <% if((typeof userTikTok === 'undefined') || (userTikTok === null)){ %>
+            <input type="text" class="form-control" id="inputTikTok" name="tiktokField" placeholder="TikTok handle.." required>
+        <% } else { %>
+            <input type="text" class="form-control" id="inputTikTok" name="tiktokField" value= <%= userTikTok; %> required>
+        <% }; %>  
+    </div>
+</div> 
+
+<!-- Dress Size -->                        
+<div class="form-group form-row " style="margin-top:2rem;">
+    <div class="col input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="inputDressSize">Dress Size</span>
+        </div>
+        <% if((typeof userDressSize === 'undefined') || (userDressSize === null)){ %>
+            <input class="form-control" type="number" id="inputDressSize" name="dressSize" min="0" max="32" placeholder="0 to 32" required>
+        <% } else { %>
+            <input class="form-control" type="number" id="inputDressSize" name="dressSize" min="0" max="32" value=<%= userDressSize; %> required>
+        <% }; %>      
+    </div>
+</div>
+
+<!-- Height -->                        
+<div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+    <label class="col-xs-3 col-form-label text-right">Height:</label>
+    <div class="col input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="inputHeightFeet">Feet</span>
+        </div>
+        <% if((typeof userHeightFeet === 'undefined') || (userHeightFeet === null)){ %>
+            <input class="form-control" type="number" id="inputHeightFeet" name="htFeet" min="5" max="6" placeholder="Feet.." required>
+        <% } else { %>
+            <input class="form-control" type="number" id="inputHeightFeet" name="htFeet" min="5" max="6" value=<%= userHeightFeet; %> required>
+        <% }; %>  
+    </div>
+    <div class="col input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="inputHeightInches">Inches</span>
+        </div>
+        <% if((typeof userHeightInches === 'undefined') || (userHeightInches === null)){ %>
+            <input class="form-control" type="number" id="inputHeightInches" name="htInches" min="0" max="11" placeholder="Inches.." required>
+        <% } else { %>
+            <input class="form-control" type="number" id="inputHeightInches" name="htInches" min="0" max="11" value=<%= userHeightInches; %> required>
+        <% }; %>  
+    </div>
+</div> 
+              
+<!-- Enter Birthday-->     
+<%- include('birthdayInput') %>       
+            
+<!-- Additional Info -->            
+<div class="form-group" style="margin-top:2rem;">
+    <label for="additionalInfo">Other interests, skill, facts you would like to share:</label>
+    <div class="">
+        <% if((typeof userAdditionalInfo === 'undefined') || (userAdditionalInfo === null)){ %>
+            <textarea class="form-control" id="additionalInfo" name="additionalInfoField" placeholder="Comments.." rows=3 required></textarea>
+        <% } else { %>
+            <textarea class="form-control" id="additionalInfo" name="additionalInfoField" rows=3 required>  <%= userAdditionalInfo; %> </textarea>
+        <% }; %>  
+    </div>
+</div>
+
+<!-- COVID 19 form -->            
+<div class="justify-content-center" style="margin-top:2rem;">
+    <img src="/images/COVID19LiabilityWaiver.jpg" style="width:100%" alt="Home">
+</div>
+
+<div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+    <div class="col input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="covidSignatureId">Signature</span>
+        </div>
+        <% if((typeof userCovidSignature === 'undefined') || (userCovidSignature === null)){ %>
+            <textarea type="text" class="form-control" id="covidSignatureId" name="covidSignature" rows=1 placeholder="Type first & last name.." required></textarea>                       
+        <% } else { %>
+            <textarea type="text" class="form-control" id="covidSignatureId" name="covidSignature" rows=1 required><%= userCovidSignature; %></textarea>                     
+        <% }; %> 
+     </div>
+</div>
+
+<!-- Confirm agreement to COVID DISCLOSURE -->
+<div class="form-group form-row">
+    <div class="col" >
+        <select class="form-control" id="checkCovidId" name="covidCheck" title="Do you agree with the COVID-19 DISCLOSURE?" required>
+            <% if((typeof userCovidCheck === 'undefined') || (userCovidCheck === null)){ %>
+                <option value="0">I have read the COVID-19 DISCLOSURE, and I agree with it</option>
+                <option value="1" >I have read the COVID-19 DISCLOSURE and DO NOT agree with it</option>
+            <% } else { %>
+                <option value="0" <% if (userCovidCheck == "0") {%> selected <%}%>>I have read the COVID-19 DISCLOSURE, and I agree with it</option>
+                <option value="1" <% if (userCovidCheck == "1") {%> selected <%}%>>I have read the COVID-19 DISCLOSURE and DO NOT agree with it</option>
+            <% }; %> 
+        </select>     
+    </div>
+</div>
+
+<!-- Representation of being free agent and will sign with ONE as agency and mother agency -->
+<%- include('freeAgentInput') %>
+
+<!-- Password-->
+<div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+    <div class="col input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="inputPassword">Password</span>
+        </div>
+        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="AlphaNumeric. 15 => Length => 8" required>
+    </div>
+</div>
+
+

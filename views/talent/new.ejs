@@ -1,299 +1,31 @@
-
 <div>
 <% if(loggedIn) { %>
     <div class="jumbotron" style="width:95%;margin:auto;margin-top:2rem">
-        <h3 class="container text-center" style="margin-top:2rem">Account Registration</h3>
+        <h4 class="container text-center" style="margin-top:2rem">Account Registration</h4>
         <p>Please log out the current user before registering new user.</p>
     </div>
 <% } else { %>
-    <h3 class="container text-center" style="margin-top:2rem">Talent Submission</h3>
+    <h4 class="container text-center" style="margin-top:2rem">Complete your Submission to NY(S)FS</h4>
     <div class="col" style="margin-top:2rem">
-        <form name="form-sign-up" method="POST" action="/talent/create" style="width:80%;margin-left:10%;" enctype="multipart/form-data">
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
-                <label for="inputFirstName" class="col-xs-3 col-form-label text-right">First Name:</label>
-                <div class="col">
-                    <% if((typeof firstName === 'undefined') || (firstName === null)){ %>
-                        <input type="text" class="form-control" id="inputFirstName" name="first" placeholder="First Name" required autofocus>
-                    <% } else { %>
-                        <input type="text" class="form-control" id="inputFirstName" name="first" value= <%= firstName; %> required>
-                    <% }; %>  
-                </div>
-            </div>
+        <form name="form-register" method="POST" action="/talent/create" style="width:80%;margin-left:10%;">
 
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
-                <label for="inputLastName" class="col-xs-3 col-form-label text-right">Last Name:</label>
-                <div class="col">
-                    <% if((typeof lastName === 'undefined') || (lastName === null)){ %>
-                        <input type="text" class="form-control" id="inputLastName" name="last" placeholder="Last Name" required>
-                    <% } else { %>
-                        <input type="text" class="form-control" id="inputLastName" name="last" value= <%= lastName; %> required>
-                    <% }; %>  
-                </div>
-            </div>
-
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
-                <label for="inputEmail" class="col-xs-3 col-form-label text-right">Email:</label>
-                <div class="col">
-                    <% if((typeof userEmail === 'undefined') || (userEmail === null)){ %>
-                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email.." required>
-                    <% } else { %>
-                        <input type="email" class="form-control" id="inputEmail" name="email" value= <%= userEmail; %> required>
-                    <% }; %>  
-                </div>
-            </div> 
-
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
-                <label for="inputInstagram" class="col-xs-3 col-form-label text-right">Instagram:</label>
-                <div class="col">
-                    <% if((typeof userInstagram === 'undefined') || (userInstagram === null)){ %>
-                        <input type="text" class="form-control" id="inputInstagram" name="instagramField" placeholder="Instagram handle.." required>
-                    <% } else { %>
-                        <input type="text" class="form-control" id="inputInstagram" name="instagramField" value= <%= userInstagram; %> required>
-                    <% }; %>  
-                </div>
-            </div> 
-
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
-                <label for="inputTikTok" class="col-xs-3 col-form-label text-right">TikTok:</label>
-                <div class="col">
-                    <% if((typeof userTikTok === 'undefined') || (userTikTok === null)){ %>
-                        <input type="text" class="form-control" id="inputTikTok" name="tiktokField" placeholder="TikTok handle.." required>
-                    <% } else { %>
-                        <input type="text" class="form-control" id="inputTikTok" name="tiktokField" value= <%= userTikTok; %> required>
-                    <% }; %>  
-                </div>
-            </div> 
-
-            <div class="form-group form-row " style="margin-top:2rem;">
-                <label for="inputDressSize" class="col-xs-3 col-form-label text-right">Dress Size:</label>
-                <div class="col">
-                    <% if((typeof userDressSize === 'undefined') || (userDressSize === null)){ %>
-                        <select class="form-control selectpicker" id="inputDressSize" name="dressSize" title="What is your Dress Size?" required>
-                            <option value="0">0-4</option>
-                            <option value="6" >6-8</option>
-                            <option value="10" >10-12</option>                            
-                            <option value="14" >14 plus</option>
-                        </select>
-                    <% } else { %>
-                        <select class="form-control selectpicker" id="inputDressSize" name="dressSize" title="What is your Dress Size?" required>
-                            <option value="0" <% if (userDressSize === "0") {%> selected <%}%> >0-4</option>
-                            <option value="6" <% if (userDressSize === "6") {%> selected <%}%> >6-8</option>
-                            <option value="10" <% if (userDressSize === "10") {%> selected <%}%> >10-12</option>
-                            <option value="14" <% if (userDressSize === "14") {%> selected <%}%> >14 plus</option>
-                        </select>
-                    <% }; %>  
-                </div>
-            </div>
+            <%- include('form-elements/new-aux') %>
               
-            <label style="margin-top:0rem;" class="col-xs-3 col-form-label text-left">Birthday:</label>  
-            <div class="form-group form-row" >
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
                 <div class="col input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" for="inputBDMonth">M</span>
+                        <span class="input-group-text" for="inputConfirmPassword">Confirm Password</span>
                     </div>
-                    <% if((typeof userBDMonth === 'undefined') || (userBDMonth === null)){ %>
-                        <input class="form-control" type="number" id="inputBDMonth" name="bdMonth" min="1" max="12" placeholder="Month.." required>
-                    <% } else { %>
-                        <input class="form-control" type="number" id="inputBDMonth" name="bdMonth" min="1" max="12" value= <%= userBDMonth; %> required>
-                    <% }; %>  
-                </div>
-                <div class="col input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" for="inputBDDay">D</span>
-                    </div>
-                    <% if((typeof userBDDay === 'undefined') || (userBDDay === null)){ %>
-                        <input class="form-control" type="number" id="inputBDDay" name="bdDay" min="1" max="31" placeholder="Day.." required>
-                    <% } else { %>
-                        <input class="form-control" type="number" id="inputBDDay" name="bdDay" min="1" max="31" value= <%= userBDDay; %> required>
-                    <% }; %>  
-                </div>
-                <div class="col input-group">
-                    <div class="input-group-prepend small">
-                        <span class="input-group-text" for="inputBDYear">Y</span>
-                    </div>
-                    <% if((typeof userBDYear === 'undefined') || (userBDYear === null)){ %>
-                        <input class="form-control" type="number" id="inputBDYear" name="bdYear" min="1990" max="2005" placeholder="Year.." required>
-                    <% } else { %>
-                        <input class="form-control" type="number" id="inputBDYear" name="bdYear" min="1990" max="2005" value= <%= userBDYear; %> required>
-                    <% }; %>  
-                </div>
-            </div> 
-            
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
-                <label class="col-xs-3 col-form-label text-right">Height:</label>
-                <div class="col input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" for="inputHeightFeet">Feet</span>
-                    </div>
-                    <% if((typeof userHeightFeet === 'undefined') || (userHeightFeet === null)){ %>
-                        <input class="form-control" type="number" id="inputHeightFeet" name="htFeet" min="5" max="6" placeholder="Feet.." required>
-                    <% } else { %>
-                        <input class="form-control" type="number" id="inputHeightFeet" name="htFeet" min="5" max="6" value=<%= userHeightFeet; %> required>
-                    <% }; %>  
-                </div>
-                <div class="col input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" for="inputHeightInches">Inches</span>
-                    </div>
-                    <% if((typeof userHeightInches === 'undefined') || (userHeightInches === null)){ %>
-                        <input class="form-control" type="number" id="inputHeightInches" name="htInches" min="0" max="11" placeholder="Inches.." required>
-                    <% } else { %>
-                        <input class="form-control" type="number" id="inputHeightInches" name="htInches" min="0" max="11" value=<%= userHeightInches; %> required>
-                    <% }; %>  
-                </div>
-            </div> 
-
-            <div class="form-group" style="margin-top:2rem;">
-                <label for="additionalInfo">Other interests, skill, facts you would like to share:</label>
-                <div class="">
-                    <% if((typeof userAdditionalInfo === 'undefined') || (userAdditionalInfo === null)){ %>
-                        <textarea class="form-control" id="additionalInfo" name="additionalInfoField" placeholder="Comments.." rows=3 required></textarea>
-                    <% } else { %>
-                        <textarea class="form-control" id="additionalInfo" name="additionalInfoField" rows=3 required>  <%= userAdditionalInfo; %> </textarea>
-                    <% }; %>  
-                </div>
-            </div>
-
-<!-- The two images -->
-            <div class="row text-center" style="margin-top:4rem;">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-3" style="margin-bottom:4rem;">
-                    <div class="card">
-                        <% if ((typeof file1 !== 'undefined') && (file1 !== null)){ %>
-                            <div  style="display:inline-block;position:relative;">
-                                <img src="/images/common/image-block.png"  class="card-img-top" alt="Blank">              
-                                <img id="idImage1Load" style="position:absolute;right:0%;top:0%;" src=<%= file1%>  class="card-img-top" alt="Blank">
-                            </div>  
-                        <% } else { %>
-                            <img src="/images/common/image-block.png"  class="card-img-top" alt="Blank">
-                        <% } %>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item" id="idUploadImageLinkCB1" style="padding:0">
-                                <a href="#" class="btn btn-secondary btn-block" id="idUploadImageLink1" style="border-radius:0">Upload Image 1</a>
-                            </li>
-                            <li class="list-group-item" d="idRemoveImageLinkCB1" style="padding:0">
-                                <a href="#" class="btn btn-secondary btn-block" id="idRemoveImageLink1" style="border-radius:0">Remove Image 1</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-sm-3" style="margin-bottom:2rem;">
-                    <div class="card">
-                        <% if ((typeof file2 !== 'undefined') && (file2 !== null)){ %>
-                            <div style="display:inline-block;position:relative;">
-                                <img src="/images/common/image-block.png"  class="card-img-top" alt="Blank">              
-                                <img id="idImage2Load" style="position:absolute;right:0%;top:0%;" src=<%= file2%>  class="card-img-top" alt="Blank">
-                            </div>  
-                        <% } else { %>
-                            <img src="/images/common/image-block.png"  class="card-img-top" alt="Blank">
-                        <% } %>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item" id="idUploadImageLinkCB2" style="padding:0">
-                                <a href="#" class="btn btn-secondary btn-block" id="idUploadImageLink2" style="border-radius:0">Upload Image 2</a>
-                            </li>
-                            <li class="list-group-item" d="idRemoveImageLinkCB1" style="padding:0">
-                                <a href="#" class="btn btn-secondary btn-block" id="idRemoveImageLink2" style="border-radius:0">Remove Image 2</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-          
-<!-- COVID 19 form -->            
-            <div class="justify-content-center" style="margin-top:2rem;">
-                <img src="/images/COVID19LiabilityWaiver.jpg" style="width:100%" alt="Home">
-            </div>
-
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
-                <label for="inputCOVIDConsent" class="col-xs-3 col-form-label text-right">Signature:</label>
-                <div class="col">
-                    <input type="text" class="form-control" id="inputCOVIDConsent" name="covidSignature" placeholder="Type first & last name.." required>
-                </div>
-            </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="covidCheck" id="defaultCheckCovid" required>
-                <label class="form-check-label" for="defaultCheckCovid">
-                  I have read the "COVID-19 ASSUMPTION OF RISK AND WAIVER OF LIABILITY" in its entirety, and I agree with it fully and without any reservations.
-                </label>
-            </div>
-
-            <div class="form-group form-row " style="margin-top:2rem;">
-                <div class="col">
-                    <select class="form-control selectpicker" id="inputMinorCheck" name="minorCheck" title="Are you a Minor?" required>
-                        <option value="0" >I am NOT a MINOR</option>
-                        <option value="1">I am a MINOR</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="justify-content-center" style="margin-top:2rem;" id="minorWaiverTextDiv">
-                <img src="/images/MinorWaiver.jpg" style="width:100%" alt="Home">
-            </div>
-
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;" id="minorSignatureDiv">
-                <label for="inputMINORConsent" class="col-xs-3 col-form-label text-right">Signature:</label>
-                <div class="col">
-                    <input type="text" class="form-control" id="inputMINORConsent" name="minorSignature" placeholder="Guardian's first & last name..">
-                </div>
-            </div>
-
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
-                <label for="inputPassword" class="col-xs-3 col-form-label text-right">Password:</label>
-                <div class="col">
-                    <input type="password" class="form-control" id="inputPassword" name="password" placeholder="AlphaNumeric. 15 => Length => 8" required>
-                </div>
-            </div>
-
-            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
-                <label for="inputConfirmPassword" class="col-xs-3 col-form-label text-right">Confirm Password:</label>
-                <div class="col">
                     <input type="password" class="form-control" id="inputConfirmPassword" name="confirmPassword" placeholder="AlphaNumeric. 15 => Length => 8" required>
                 </div>
             </div>            
             
             <div class="text-center" style="margin-top:3rem">
-                <input type="submit" value="SUBMIT" style="width:35%" class="btn btn-md btn-secondary" >
+                <input type="submit" value="SUBMIT" class="btn btn-md btn-secondary btn-block" >
             </div>
         </form>  
     </div>
 <% } %>
-</div>
-
-<div style="display:none;">
-    <form action="/talent/upload?image=image1" method="POST" enctype="multipart/form-data">
-        <div class="form-group" >
-            <label for="idFile1"> </label>
-            <input type="file" name="file1" id="idFile1">
-        </div>
-        <button type="submit" class="btn btn-primary" id="idSubmitButton1">Submit1</button>
-    </form>
-</div>
-
-<div style="display:none;">
-    <form action="/talent/upload?image=image2" method="POST" enctype="multipart/form-data">
-        <div class="form-group" >
-            <label for="idFile2"> </label>
-            <input type="file" name="file2" id="idFile2">
-        </div>
-        <button type="submit" class="btn btn-primary" id="idSubmitButton2">Submit2</button>
-    </form>
-</div>
-
-<div style="display:none;">
-    <form action="/talent/delete" method="POST">
-        <input type="text" name="file1" value="test">
-        <button type="submit" class="btn btn-primary" id="idDeleteButton1">DeleteSubmit1</button>
-    </form>
-</div>
-
-<div style="display:none;">
-    <form action="/talent/delete" method="POST">
-        <input type="text" name="file2" value="test">
-        <button type="submit" class="btn btn-primary" id="idDeleteButton2">DeleteSubmit2</button>
-    </form>
 </div>
 
 

@@ -1,0 +1,34 @@
+            <!-- Enter Birthday-->            
+            <label style="margin-top:0rem;" class="col-xs-3 col-form-label text-left">Birthday:</label>  
+            <div class="form-group form-row" >
+                <div class="col input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" for="inputBDMonth">M</span>
+                    </div>
+                    <% if((typeof userBDMonth === 'undefined') || (userBDMonth === null)){ %>
+                        <input class="form-control" type="number" id="inputBDMonth" name="bdMonth" min="1" max="12" placeholder="Month.." required>
+                    <% } else { %>
+                        <input class="form-control" type="number" id="inputBDMonth" name="bdMonth" min="1" max="12" value= <%= userBDMonth; %> required>
+                    <% }; %>  
+                </div>
+                <div class="col input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" for="inputBDDay">D</span>
+                    </div>
+                    <% if((typeof userBDDay === 'undefined') || (userBDDay === null)){ %>
+                        <input class="form-control" type="number" id="inputBDDay" name="bdDay" min="1" max="31" placeholder="Day.." required>
+                    <% } else { %>
+                        <input class="form-control" type="number" id="inputBDDay" name="bdDay" min="1" max="31" value= <%= userBDDay; %> required>
+                    <% }; %>  
+                </div>
+                <div class="col input-group">
+                    <div class="input-group-prepend small">
+                        <span class="input-group-text" for="inputBDYear">Y</span>
+                    </div>
+                    <% if((typeof userBDYear === 'undefined') || (userBDYear === null)){ %>
+                        <input class="form-control" type="number" id="inputBDYear" name="bdYear" min="1990" max="2005" placeholder="Year.." required>
+                    <% } else { %>
+                        <input class="form-control" type="number" id="inputBDYear" name="bdYear" min="1990" max="2005" value= <%= userBDYear; %> required>
+                    <% }; %>  
+                </div>
+            </div> 

@@ -1,41 +1,70 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light" > 
-    <a class="navbar-brand" href="/">
-        <img src="/images/LogoOpenCall.png" style="height:60px;margin-left:auto;margin-right:auto;display:block;" alt="Home">
+<div class="container center" style="margin-top:1rem;">
+    <a class="" href="/">
+        <img src="/images/LogoOpenCall.png" style="height:50px;margin-left:auto;margin-right:auto;display:block;" alt="Home">
     </a>
+</div>
 
+
+<div class="row" style="margin-top:1rem;">
+    <div class="col-md-12 text-center">
+
+        <div class="dropdown">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                <% if (loggedIn) {%>
+                    <%= currentUser.fullName %>
+                <% } else  {%>      
+                    Enter NY(S)FS
+                <% }%>            
+            </button>
+            <div class="dropdown-menu">
+                <% if (loggedIn) {%>
+                    <a class="dropdown-item" href="/talent/show">View</a>
+                    <a class="dropdown-item" href="/talent/edit-info">Edit Info</a>
+                    <a class="dropdown-item" href="/talent/edit-password">Edit Password</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/talent/logout">Logout</a>               
+                <% } else  {%>
+                    <a class="dropdown-item" href="/talent/signup">Sign-Up</a>
+                    <a class="dropdown-item" href="/talent/login">Log-In</a>
+                <% }%>                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<nav class="navbar navbar-expand-md navbar-light bg-light justify-content-center justify-content-start" > 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
             aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href='/submitted-talent'>Submissions</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href='/talent/pick-file'>Upload</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav">
+    <div class="collapse navbar-collapse justify-content-between align-items-center" id="collapsibleNavbar">
+        <ul class="navbar-nav mx-auto text-center">
         <% if (loggedIn) {%>
-            <li class="nav-item dropdown">
-                <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <%= currentUser.fullName %>
-                </a>
-                <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="user-menu">
-                    <a class="dropdown-item" href="/talent/show">View</a>
-                    <a class="dropdown-item" href="/talent/edit-info">Edit Info</a>
-                    <a class="dropdown-item" href="/talent/edit-password">Edit Password</a>                    
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/talent/logout">Logout</a>
-                </div>
+            <li class="nav-item">
+                <a class="dropdown-item" href="/talent/show">View</a>
             </li>
+            <li class="nav-item">
+                <a class="dropdown-item" href="/talent/edit-info">Edit Info</a>
+            </li>
+            <li class="nav-item">
+                <a class="dropdown-item" href="/talent/edit-password">Edit Password</a>                    
+            </li>
+            <li class="nav-item">
+                <a class="dropdown-item" href="/talent/logout">Logout</a>
+            </li>            
         <% } else { %>
             <li class="nav-item">
-                <a class="nav-link" href='/talent/signup'>Sign In</a>
+                <a class="nav-link" href='/talent/signup'>Sign-Up</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href='/talent/login'>Log-In</a>
             </li>
         <% }%>
         </ul>
     </div>
 </nav>
+-->
+

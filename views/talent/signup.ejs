@@ -1,40 +1,21 @@
 <div>
-    <div class="col" style="margin-top:1rem">
-        <h4 class="container text-center">Submitting for first time? Register Please</h4>
-        <form name="form-sign-up" method="POST" action="/talent/new" style="margin-top:2rem">
-            <div class="text-center">
-                <label for="inputNewTalentEmail" style="width:5rem;text-align:right;">Email: </label>
-                <% if((typeof registerEmail === 'undefined') || (registerEmail === null)){ %>
-                    <input id="inputNewTalentEmail" type="email" name="newTalentEmail" placeholder="Email address..." style="width:65%;">
-                <% } else { %>
-                    <input id="inputNewTalentEmail" type="email" name="newTalentEmail"  style="width:65%;" value=<%= registerEmail; %>>
-                <% }; %>
-            </div>
+    <div class="col" style="margin-top:2rem">
+        <h4 class="container text-center">Start your Submission to NY(S)FS</h4>
+
+        <form name="form-sign-up" method="POST" action="/talent/new" style="margin-top:2rem;width:80%;margin-left:10%;">
+
+            <!-- Enter Email for New User-->
+            <%- include('form-elements/user-email') %>
+
+            <!-- Enter Birthday-->            
+            <%- include('form-elements/birthdayInput') %>
+
+            <!-- Representation of being free agent and will sign with ONE as agency and mother agency -->            
+            <%- include('form-elements/freeAgentInput') %>
+            
             <div class="text-center" style="margin-top:1rem">
-                <input type="submit" value="Sign Up" style="width:35%" class="btn btn-md btn-info">
+                <input type="submit" value="Sign Up" class="btn btn-md btn-secondary btn-block">
             </div>
         </form>  
-        
-        <hr style="width:95%;text-align:center;border-width:2px;border-color:#234234;margin-top:2rem">
-
-        <h4 class="container text-center" style="margin-top:2rem">Want to update your submission? Log In</h4>
-        <form name="form-login" method="POST" action="/talent/login" style="margin-top:2rem">
-            <div class="text-center">
-                <label for="inputLogInEmail" style="width:5rem;text-align:right;">Email: </label>
-                <% if((typeof loginEmail === 'undefined') || (loginEmail === null) ){ %>
-                    <input id="inputLogInEmail" type="email" name="email" placeholder="Email address..." style="width:65%;">
-                <% } else { %>
-                    <input id="inputLogInEmail" type="email" name="email" style="width:65%;" value=<%= loginEmail; %>>
-                <% }; %>
-            </div>
-            <div class="text-center" style="margin-top:1rem">
-                <label for="inputPassword" style="width:5rem;text-align:right;">Password: </label>
-                <input id="inputPassword" type="password" name="password" placeholder="Alphanumeric. 8 <= Length <= 15" style="width:65%;">
-            </div>
-            <div class="text-center" style="margin-top:1rem">
-                <input type="submit" value="Log In" style="width:35%" class="btn btn-md btn-info">
-            </div>
-        </form>  
-
     </div>
 </div>

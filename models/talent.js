@@ -44,7 +44,7 @@ const TalentSchema = new Schema({
     }
   },
   dress: {
-    type: String,
+    type: Number,
     required: true  
   },
   info: {
@@ -59,12 +59,8 @@ const TalentSchema = new Schema({
     type: Boolean,
     required: true  
   },
-  isAMinor: {
+  freeAgentCheck: {
     type: Boolean,
-    required: true  
-  },
-  minorSignature: {
-    type: String,
     required: true  
   }
 },
@@ -94,28 +90,6 @@ TalentSchema.virtual("bdMonth").get(function() {
 TalentSchema.virtual("bdDay").get(function() {
   var d = new Date(this.birthday);
   return d.getUTCDate();
-});
-
-TalentSchema.virtual("dressSize").get(function() {
-  var size="";
-  switch(parseInt(this.dress,10)){
-    case 0:
-      size = "0-4";
-      break;
-
-    case 6:
-      size = "6-8";
-      break;
-
-    case 10:
-      size = "10-12";
-      break;
-
-    case 14:
-      size = "14 plus";
-      break;
-  }
-  return size;
 });
 
 TalentSchema.virtual("fullHeight").get(function() {

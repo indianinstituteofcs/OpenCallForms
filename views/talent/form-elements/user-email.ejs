@@ -1,0 +1,13 @@
+<!-- Enter Email for New User-->
+<div class="form-group form-row justify-content-center">
+    <div class="col input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" for="inputNewTalentEmail">Email</span>
+        </div>
+        <% if((typeof userEmail === 'undefined') || (userEmail === null)){ %>
+            <input id="emailId" class="form-control" type="email" name="email" placeholder="Email address..." required>
+        <% } else { %>
+            <input id="emailId" class="form-control" type="email" name="email" value=<%= userEmail; %> required>
+        <% }; %>
+    </div>
+</div>

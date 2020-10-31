@@ -1,0 +1,24 @@
+<div>
+    <div class="col" style="margin-top:2rem">
+        <h4 class="container text-center">Log in to update your submission</h4>
+        <form name="form-login" method="POST" action="/talent/login" style="margin-top:2rem;width:80%;margin-left:10%;">
+            <!-- Email -->
+            <%- include('form-elements/user-email') %>
+
+            <!-- Password-->
+            <div class="form-group form-row justify-content-center" style="margin-top:2rem;">
+                <div class="col input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" for="inputPassword">Password</span>
+                    </div>
+                    <input  id="inputPassword" type="password" name="password" class="form-control" placeholder="AlphaNumeric. 15 => Length => 8" required>
+                </div>
+            </div>
+
+            <div class="text-center" style="margin-top:1rem">
+                <input type="submit" value="Log In" class="btn btn-md btn-secondary btn-block">
+            </div>
+        </form>  
+
+    </div>
+</div>

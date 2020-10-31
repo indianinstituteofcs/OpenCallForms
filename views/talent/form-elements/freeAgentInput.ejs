@@ -1,0 +1,19 @@
+            <!-- Representation of being free agent and will sign with ONE as agency and mother agency -->            
+            <p class="text-center" style="margin-top:2rem;font-size:1rem;font-weight:600;text-decoration:underline;">REPRESENTATION STATEMENT</p>
+            <p style="margin-top:-1.0rem;font-size:1rem;"> I am not represented by any person or entity as a Model/Influencer/Personality for any media.
+                I do not have a Mother Agent or Manager who decides on my placement with any Modeling, Talent or Mother Agency. 
+                I am either a citizen of the USA or a permanent resident of the USA.
+            </p>
+            <div class="form-group form-row">
+                <div class="col">
+                    <select class="form-control selectpicker" id="freeAgentCheckId" name="freeAgentCheck" title="Do you agree with the REPRESENTATION STATEMENT?" required>
+                        <% if((typeof userFreeAgentCheck === 'undefined') || (userFreeAgentCheck === null)){ %>
+                            <option value="0" >I have read the REPRESENTATION STATEMENT above and agree with it</option>
+                            <option value="1" >I have read the REPRESENTATION STATEMENT above and DO NOT agree with it</option>
+                        <% } else { %>
+                            <option value="0" <% if (userFreeAgentCheck == "0") {%> selected <%}%>>I have read the REPRESENTATION STATEMENT above and agree with it</option>
+                            <option value="1" <% if (userFreeAgentCheck == "1") {%> selected <%}%>>I have read the REPRESENTATION STATEMENT above and DO NOT agree with it</option>
+                        <% }; %> 
+                    </select>     
+                </div>
+            </div>
