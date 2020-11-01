@@ -1,6 +1,6 @@
-<div class="container center" style="margin-top:1rem;">
+<div class="container center" style="margin-top:1.5rem;">
     <a class="" href="/">
-        <img src="/images/common/NYSFS.png" style="height:50px;margin-left:auto;margin-right:auto;display:block;" alt="Home">
+        <img src="/images/common/NYSFS.png" style="height:2.25rem;margin-left:auto;margin-right:auto;display:block;" alt="Home">
     </a>
 </div>
 
@@ -9,21 +9,28 @@
     <div class="col-md-12 text-center">
 
         <div class="dropdown">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+            <span style="font-size:1.6rem;text-transform:uppercase;vertical-align:-13%;">
                 <% if (loggedIn) {%>
                     <%= currentUser.fullName %>
                 <% } else  {%>      
-                    Enter NY(S)FS
+                    Enter NOW
                 <% }%>            
-            </button>
+            </span>
+            
+            <button type="button" class="btn" data-toggle="dropdown">
+                <img src="/images/common/burger.png" style="height:1.4rem;margin-left:auto;margin-right:auto;display:block;" alt="Home">
+            </button>        
+            
             <div class="dropdown-menu">
+                <a class="dropdown-item" href="/">Home</a>
+                <div class="dropdown-divider"></div>
                 <% if (loggedIn) {%>
                     <a class="dropdown-item" href="/talent/show">View</a>
                     <a class="dropdown-item" href="/talent/edit-info">Edit Info</a>
                     <a class="dropdown-item" href="/talent/edit-password">Edit Password</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/talent/logout">Logout</a>               
-                <% } else  {%>
+                <% } else {%>                    
                     <a class="dropdown-item" href="/talent/signup">Sign-Up</a>
                     <a class="dropdown-item" href="/talent/login">Log-In</a>
                 <% }%>                

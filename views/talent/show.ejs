@@ -2,11 +2,11 @@
     <% if(!loggedIn) { %>
         <h4>Show/Verify User</h4>
         <p>No talent is currently logged in.</p>
-    <% } else { %>
+    <% } else { %> 
         <div  class="container text-center">
-            <h4><%= currentUser.fullName; %>'s Submission Details</h4>
+            <h4>Submission Details</h4>
             <br/>
-            <% if(currentUser.emailVerified){%>
+            <% if(currentUser.emailVerified){%> <!-- LoggedIn and email is verified -->
                 <h6>Birthday: <%= currentUser.birthDate; %></h6>            
                 <h6>Email: <%= currentUser.email; %></h6>
                 <h6>Instagram: <%= currentUser.instagram; %></h6>
@@ -21,20 +21,9 @@
                     1) the COVID DISCLOSURE and<br/>
                     2) the REPRESENTATION STATEMENT.    
                 </p>
-            <%} else {%>
-                <p>
-                    Waiting for email verification.<br/>
-                    Please check the junk/spam mailbox - verfication mail might be there.<br/>
-                    To receive a new verfication email please click on Resend below.<br/>
-                </p>
-
-                <div class="text-center" style="margin-top:3rem">
-                    <a class="btn btn-md btn-success" href='/talent/resend' role=button style="width:16rem">
-                        Resend
-                    </a>
-                </div>
+            <%} else {%> <!-- LoggedIn but email is not verified -->
+                <%- include('resend') %>
             <%}%>
         </div>
     <% } %>
-    </div>
 </div>
