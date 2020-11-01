@@ -1,7 +1,7 @@
 {
   "name": "oneforms",
   "version": "1.0.0",
-  "description": "Forms of open call submission",
+  "description": "Site for NY(S)FS",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -3,7 +3,7 @@ const   Talent = require("../models/talent");
 
 exports.getRoot = (req, res) => {
     console.log(fName + "getRoot:/:");
-    res.render("index",{title:"Forms:Home"});
+    res.render("index",{title:"NY(S)FS | Home"});
 };
 
 
@@ -13,7 +13,7 @@ exports.getAllTalent = (req, res, next) => {
         if (error) next(error);
         res.render("home/submitted-talent", {
             talentList: talentList,
-            title:"Forms:All Submissions"
+            title:"NY(S)FS | All Submissions"
         });
     });
 };

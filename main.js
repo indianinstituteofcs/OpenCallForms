@@ -71,7 +71,7 @@ app.use((req, res, next) => {
     //console.log("Logged" + res.locals.loggedIn);
     res.locals.currentUser = req.user;
     res.locals.file = req.file;
-    res.locals.title = "Form";
+    res.locals.title = "NY(S)FS";
     next();
 });
 
@@ -85,7 +85,7 @@ const cert = fs.readFileSync("localhost.pem", "utf-8");
 
 https.createServer({ key, cert }, app).listen(
     port, () => {
-        console.log(`Forms: Server running at https://localhost:${port}`);
+        console.log(`NY(S)FS: Server running at https://localhost:${port}`);
     }
 );
 
